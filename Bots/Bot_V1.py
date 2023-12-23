@@ -1,4 +1,4 @@
-from Node import Node
+from Bots.Node import Node
 import copy
 
 

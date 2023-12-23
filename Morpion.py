@@ -1,16 +1,14 @@
-from tkinter import *
 from random import choice
+from tkinter import *
 
-from Bot_Random import Bot_Random
 from Player import Player
-from Bot_V1 import Bot_V1
-from Bot_V2 import Bot_V2
+import Bot
 
 
 def main():
     state = None
     # state = {'board': [1, -1, 1, 0, 0, 0, 1, 0, 0, -1, -1, 0, 1, -1, 0, 0, 0, 0, 0, 1, 0, 1, -1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 0, -1, 0, 1, 0, 1, 1, -1, 0, -1, 1, 1, 1, 1, 0, -1, -1, -1, 0, 1, 0, 1, 1, 1, 0, -1, 0, 1, -1, 1, 0, 0, -1, 1, 0, 1, 1, 1, 1, -1, -1, 0, 1, 0, -1, 0, 0], 'player': 0, 'square': 8}
-    game = Game(Bot_V2(), Player(), windowSize = 800, state=state)
+    game = Game(Bot.Random(), Player(), windowSize = 800, state=state)
     game.start()
 
 
