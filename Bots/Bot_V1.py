@@ -1,6 +1,6 @@
 from Bots.Node import Node
 import copy
-
+import Utils
 
 class Bot_V1(object):
 
@@ -8,9 +8,9 @@ class Bot_V1(object):
 		self.name = "V1"
 		self.depth = depth
 
-	def start(self, game, player_id):
+	def start(self, game, ID):
 		self.game = game
-		self.player_id = player_id
+		self.ID = ID
 
 	def play(self):
 		# print("start Move")
@@ -21,11 +21,11 @@ class Bot_V1(object):
 		# print(f"\nBest move: {bestMove} (score: {result['score']})")
 		# exit()
 
-		return self.game.playMove(self.player_id, bestMove)
+		return self.game.playMove(self, bestMove)
 
 	def createTree(self):
 		# Create the root node with the current game state
-		root = Node(-1, self.game.getState())
+		root = Node(-1, self.game.state)
 		currentNode = Node.getValidNode(self.depth)
 
 		# While there is nodes not explored below the depth
@@ -39,11 +39,11 @@ class Bot_V1(object):
 
 				# Copy the parent state and change it with the new move
 				newState = copy.deepcopy(currentNode.state)
-				newState["board"][move] = self.player_id
+				newState["board"][move] = self.ID
 				newState["player"] = (newState["player"] + 1) % 2
 
 				# Get the square of the next move
-				possibleSquares = self.game.getNewSquare(move, currentNode.state)
+				possibleSquares = self.game.getNewSquare(currentNode.state, move)
 
 				# If multiple next squares create a child for each of them
 				if isinstance(possibleSquares, list):
@@ -95,10 +95,10 @@ class Bot_V1(object):
 		score = 0
 		for sequence in [state["board"][i: i + 9] for i in range(0 ,81 ,9)]:
 
-			for line in self.game.lines:
-				if [sequence[i] for i in line['offsets']] == [self.player_id] * 3:
+			for line in Utils.lines:
+				if [sequence[i] for i in line['offsets']] == [self.ID] * 3:
 					score += 1
-				elif [sequence[i] for i in line['offsets']] == [(self.player_id + 1) % 2] * 3:
+				elif [sequence[i] for i in line['offsets']] == [(self.ID + 1) % 2] * 3:
 					score -= 1
 		# print(score,end="-")
 		return score

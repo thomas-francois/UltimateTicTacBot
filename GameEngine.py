@@ -1,5 +1,6 @@
 from random import choice
 import Bot
+import Utils
 from Player import Player
 from GameDisplay import GameDisplay
 
@@ -31,6 +32,9 @@ class GameEngine(object):
 		if self.display:
 			self.display.fenetre.mainloop()
 
+		return Utils.calculteScore(self.state, [p.name for p in self.__players])
+
+
 
 	def playMove(self, player, move):
 		if player == self.player and move in self.getLegalMoves(self.state):
@@ -41,7 +45,6 @@ class GameEngine(object):
 				self.isStarted = False
 				if self.display:
 					self.display.update(self.state)
-				print("Game ended")
 				return
 
 			newSquare = self.getNewSquare(self.state, move)
@@ -106,5 +109,5 @@ class GameEngine(object):
 
 
 if __name__ == '__main__':
-	game = GameEngine(Bot.Random(), Bot.Random(), display = False)
-	game.start()
+	game = GameEngine(Bot.Random(), Bot.V2(depth = 4), display = True)
+	print(game.start())

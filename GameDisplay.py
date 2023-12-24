@@ -1,18 +1,8 @@
 from tkinter import *
+import Utils
 
 
 class GameDisplay(object):
-
-	lines = [
-		{"type": "horizontal", "index": 0, 'offsets': [0, 1, 2]},
-		{"type": "horizontal", "index": 1, 'offsets': [3, 4, 5]},
-		{"type": "horizontal", "index": 2, 'offsets': [6, 7, 8]},
-		{"type": "vertical", "index": 0, 'offsets': [0, 3, 6]},
-		{"type": "vertical", "index": 1, 'offsets': [1, 4, 7]},
-		{"type": "vertical", "index": 2, 'offsets': [2, 5, 8]},
-		{"type": "diagonal", "index": 0, 'offsets': [0, 4, 8]},
-		{"type": "diagonal", "index": 1, 'offsets': [2, 4, 6]},
-	]
 
 	def __init__(self, players, *,state = None):
 
@@ -75,13 +65,12 @@ class GameDisplay(object):
 		self.__updateOverlay(state["square"])
 		self.canvas.update()
 
-		# TODO: Update this function
 		index = 0
 		self.score = {"A": 0, "B": 0}
 		self.canvas.delete("lines")
 		for sequence in [state["board"][i: i + 9] for i in range(0 ,81 ,9)]:
 
-			for line in GameDisplay.lines:
+			for line in Utils.lines:
 				if [sequence[i] for i in line['offsets']] == [0] * 3:
 					self.score['A'] += 1
 					self.__createLine(index, line['type'], line['index'])
