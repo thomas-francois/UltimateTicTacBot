@@ -6,10 +6,10 @@ class Bot_Random(object):
     def __init__(self):
         self.name = "Random"
 
-    def start(self, game, player_id):
+    def start(self, game, ID):
         self.game = game
-        self.player_id = player_id
+        self.ID = ID
 
     def play(self):
-        possibleMoves = self.game.getLegalMoves()
-        return self.game.playMove(self.player_id, choice(possibleMoves))
+        possibleMoves = self.game.getLegalMoves(self.game.state)
+        self.game.playMove(self, choice(possibleMoves))
