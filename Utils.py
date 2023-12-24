@@ -22,3 +22,32 @@ def calculteScore(state, names = ["A", "B"]):
 				score[names[1]] += 1
 
 	return score
+
+
+# def printDebugTree(node, indent="│ "):
+# 	print(f"{indent * node.depth}├── {node.move}")
+# 	for child in node.children:
+# 		printDebugTree(child, indent)
+
+def printDebugTree(node, indent="│   "):
+
+	if node.isRoot:
+		print(node.move)
+	elif node.parent.isLeaf is False and node == node.parent.children[-1]:
+		print(f"{indent * (node.depth - 1)}└── {node.move} <{len(node.children)}>")
+	else:
+		print(f"{indent * (node.depth - 1)}├── {node.move} <{len(node.children)}>")
+
+	leafs = []
+	notLeafs = []
+	for child in node.children:
+		if child.isLeaf:
+			leafs.append(child)
+		else:
+			notLeafs.append(child)
+
+	for child in notLeafs:
+		printDebugTree(child, indent)
+	if leafs:
+		print(f"{indent * node.depth}└── {' '.join([str(leaf.move) for leaf in leafs])}")
+

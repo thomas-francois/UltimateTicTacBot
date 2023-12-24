@@ -31,8 +31,8 @@ class GameDisplay(object):
 			for j in range(9):
 				x = (j % 3) * cellWidth
 				y = (j // 3) * cellWidth
-				canvas.create_rectangle(bigX + x, bigY + y, bigX + x + cellWidth, bigY + y + cellWidth, fill="#13beac", outline="", tags=str(9 * i + j), activefill="#15d1be")
-				canvas.create_text(bigX + x + cellWidth / 2, bigY + y + cellWidth / 2, text="", tags=str("t" + str(9 * i + j)), fill="#545454", font=("", 70))
+				canvas.create_rectangle(bigX + x, bigY + y, bigX + x + cellWidth, bigY + y + cellWidth, fill="#13beac", outline="", tags="cell" + str(9 * i + j), activefill="#15d1be")
+				canvas.create_text(bigX + x + cellWidth / 2, bigY + y + cellWidth / 2, text="", tags="t" + str(9 * i + j), fill="#545454", font=("", 70))
 
 		for i in range(1, 9):
 			if i in [3, 6]:
@@ -49,38 +49,6 @@ class GameDisplay(object):
 		canvas.create_text(size / 2 + 200 ,margin / 2 ,text = "0"  ,fill = "#545454" ,font = ("Avenir" ,30), tag="playerB")
 
 		self.overlay = canvas.create_rectangle(0 ,0 ,0 ,0, fill = "" ,outline = "#f2ebd3" ,width = 3)
-
-
-	def update(self, state):
-		i = 0
-		for cell in state["board"]:
-			if cell == -1:
-				symbol = ""
-			elif cell == 0:
-				symbol = "○"
-			elif cell == 1:
-				symbol = "X"
-			self.canvas.itemconfigure(f"t{i}", text=symbol)
-			i += 1
-		self.__updateOverlay(state["square"])
-		self.canvas.update()
-
-		index = 0
-		self.score = {"A": 0, "B": 0}
-		self.canvas.delete("lines")
-		for sequence in [state["board"][i: i + 9] for i in range(0 ,81 ,9)]:
-
-			for line in Utils.lines:
-				if [sequence[i] for i in line['offsets']] == [0] * 3:
-					self.score['A'] += 1
-					self.__createLine(index, line['type'], line['index'])
-				elif [sequence[i] for i in line['offsets']] == [1] * 3:
-					self.score['B'] += 1
-					self.__createLine(index, line['type'], line['index'])
-			index += 1
-
-		self.canvas.itemconfigure("playerA", text=self.score['A'])
-		self.canvas.itemconfigure("playerB", text=self.score['B'])
 
 
 	def __updateOverlay(self, index):
@@ -127,3 +95,48 @@ class GameDisplay(object):
 				]
 
 		self.canvas.create_line(coords, fill="#f2ebd3" ,tag="lines", width=4, capstyle="round")
+
+
+
+	def update(self, state):
+		i = 0
+		for cell in state["board"]:
+			if cell == -1:
+				symbol = ""
+			elif cell == 0:
+				symbol = "○"
+			elif cell == 1:
+				symbol = "X"
+			self.canvas.itemconfigure(f"t{i}", text=symbol)
+			i += 1
+		self.__updateOverlay(state["square"])
+		self.canvas.update()
+
+		index = 0
+		self.score = {"A": 0, "B": 0}
+		self.canvas.delete("lines")
+		for sequence in [state["board"][i: i + 9] for i in range(0 ,81 ,9)]:
+
+			for line in Utils.lines:
+				if [sequence[i] for i in line['offsets']] == [0] * 3:
+					self.score['A'] += 1
+					self.__createLine(index, line['type'], line['index'])
+				elif [sequence[i] for i in line['offsets']] == [1] * 3:
+					self.score['B'] += 1
+					self.__createLine(index, line['type'], line['index'])
+			index += 1
+
+		self.canvas.itemconfigure("playerA", text=self.score['A'])
+		self.canvas.itemconfigure("playerB", text=self.score['B'])
+
+
+
+
+	def debug(self, data):
+		for item in data:
+			if 'color' in item:
+				self.canvas.itemconfigure(f"t{item['cell']}", text=item['value'], fill=item['color'])
+			else:
+				self.canvas.itemconfigure(f"t{item['cell']}", text=item['value'])
+
+		self.canvas.update()

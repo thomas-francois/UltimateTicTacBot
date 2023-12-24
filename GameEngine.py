@@ -109,5 +109,5 @@ class GameEngine(object):
 
 
 if __name__ == '__main__':
-	game = GameEngine(Bot.Random(), Bot.V2(depth = 4), display = True)
+	game = GameEngine(Bot.Random(), Bot.V3(depth = 3), display = True)
 	print(game.start())
