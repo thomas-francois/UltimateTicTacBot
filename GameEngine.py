@@ -53,7 +53,7 @@ class GameEngine(object):
 			else:
 				self.square = newSquare
 
-			self.player = (self.player.ID + 1) % 2
+			self.player = 1 - self.player.ID
 
 			if self.display:
 				self.display.update(self.state)
@@ -63,7 +63,7 @@ class GameEngine(object):
 		board = state["board"]
 		square = state["square"] if targetSquare is None else targetSquare
 
-		return [i for i in range(81) if board[i] == -1 and i // 9 == square]
+		return [i for i in range(square * 9, square * 9 + 9) if board[i] == -1]
 
 
 	def getNewSquare(self, state, move):
@@ -108,6 +108,20 @@ class GameEngine(object):
 		self.state["square"] = value
 
 
+def profile():
+	import cProfile
+	import pstats
+
+	with cProfile.Profile() as pr:
+		game = GameEngine(Bot.Random(), Bot.V4(depth = 4), display = False)
+		print(game.start())
+
+	stats = pstats.Stats(pr)
+	stats.sort_stats(pstats.SortKey.TIME)
+	stats.dump_stats(filename="./Profiles/Profile.prof")
+
+
 if __name__ == '__main__':
-	game = GameEngine(Bot.Random(), Bot.V3(depth = 3), display = True)
+	game = GameEngine(Bot.V4(depth = 4), Player(), display = True)
 	print(game.start())
+	# profile()

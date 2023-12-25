@@ -4,7 +4,7 @@ from GameEngine import GameEngine
 
 
 class Tournament(object):
-	"""docstring for Tournament"""
+
 	def __init__(self, playerA, playerB, rounds, threading = False):
 		self.playerA = playerA
 		self.playerB = playerB
@@ -77,10 +77,10 @@ class Tournament(object):
 
 
 if __name__ == '__main__':
-	Tournament(Bot.Random(), Bot.V3(depth = 3), 50, threading = True)
+	Tournament(Bot.Random(), Bot.V4(depth = 3), 100, threading = True)
 
 # Random 42 - 38  Random
 # V1 	 45 - 38  Random
-# V2     62 - 21  Random
-# V3     94 - 2   Random
+# V2     62 - 21  Random (1: 1.5s  / 100: 50.5s)
+# V3     94 - 2   Random (1: .474s / 100: 8.6s)
 # V1     16 - 50  V2

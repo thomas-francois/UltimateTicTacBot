@@ -3,3 +3,4 @@ from Bots.Bot_Random import Bot_Random as Random
 from Bots.Bot_V1 import Bot_V1 as V1
 from Bots.Bot_V2 import Bot_V2 as V2
 from Bots.Bot_V3 import Bot_V3 as V3
+from Bots.Bot_V4 import Bot_V4 as V4

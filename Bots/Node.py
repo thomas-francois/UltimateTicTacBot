@@ -7,7 +7,10 @@ class Node(object):
 		self.state = state
 		self.parent = parent
 		self.children = []
-		# if parent is not None:
+		if self.isRoot:
+			self.depth = 0
+		else:
+			self.depth = self.parent.depth + 1
 		Node.members.setdefault(self.depth, []).append(self)
 
 	def insertChild(self, child):
@@ -35,12 +38,6 @@ class Node(object):
 		if self.isRoot:
 			return self
 		return self.parent.rootNode
-
-	@property
-	def depth(self):
-		if self.isRoot:
-			return 0
-		return self.parent.depth + 1
 
 	@classmethod
 	def getValidNode(cls, depth):

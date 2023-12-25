@@ -9,6 +9,8 @@ lines = [
 	{"type": "diagonal", "index": 1, 'offsets': [2, 4, 6]},
 ]
 
+linesOpti = [[0, 1, 2], [3, 4, 5], [6, 7, 8],[0, 3, 6],[1, 4, 7],[2, 5, 8],[0, 4, 8],[2, 4, 6]]
+
 
 def calculteScore(state, names = ["A", "B"]):
 	score = {name: 0 for name in names}
@@ -23,11 +25,6 @@ def calculteScore(state, names = ["A", "B"]):
 
 	return score
 
-
-# def printDebugTree(node, indent="│ "):
-# 	print(f"{indent * node.depth}├── {node.move}")
-# 	for child in node.children:
-# 		printDebugTree(child, indent)
 
 def printDebugTree(node, indent="│   "):
 
@@ -51,3 +48,6 @@ def printDebugTree(node, indent="│   "):
 	if leafs:
 		print(f"{indent * node.depth}└── {' '.join([str(leaf.move) for leaf in leafs])}")
 
+
+def copyState(state):
+	return {"board": state["board"].copy(), "player": state["player"], "square": state["square"]}
