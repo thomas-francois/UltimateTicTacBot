@@ -2,15 +2,16 @@ from Bots.Node import Node
 import Utils
 
 
-class Bot_V4(object):
+class Bot_V5(object):
 
 	def __init__(self, depth = 3):
-		self.name = "V4 d=" + str(depth)
+		self.name = "V5 d=" + str(depth)
 		self.depth = depth
 
 	def start(self, game, ID):
 		self.game = game
 		self.ID = ID
+
 
 	def play(self):
 		# print("start Move")
@@ -72,6 +73,7 @@ class Bot_V4(object):
 			results.append({"node": node, "score": result["score"]})
 
 		bestMove = max(results, key=lambda x: x["score"])
+
 		return bestMove
 
 
@@ -111,11 +113,25 @@ class Bot_V4(object):
 		for sequence in [state["board"][i: i + 9] for i in range(0 ,81 ,9)]:
 
 			for line in Utils.linesOpti:
-				testLine = set([sequence[i] for i in line])
-				if testLine == {self.ID}:
-					score += 1
-				elif testLine == {1 - self.ID}:
-					score -= 1
+
+				test = [sequence[i] for i in line]
+				testSet = set(test)
+				if testSet == {self.ID}:
+					score += 10
+				elif testSet == {1 - self.ID}:
+					score -= 10
+
+				if -1 in test and test.count(self.ID) == 2:
+					score += 2
+				elif -1 in test and test.count(1 - self.ID) == 2:
+					score -= 2
+
+			if sequence[4] == self.ID:
+				score += 1
+			elif sequence[4] == 1 - self.ID:
+				score -= 1
+
+
 
 		return score
 

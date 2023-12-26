@@ -77,7 +77,7 @@ class Tournament(object):
 
 
 if __name__ == '__main__':
-	Tournament(Bot.Random(), Bot.V4(depth = 3), 100, threading = True)
+	Tournament(Bot.V5(depth = 1), Bot.V4(depth = 4), 100, threading = True)
 
 # Random 42 - 38  Random
 # V1 	 45 - 38  Random

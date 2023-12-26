@@ -122,6 +122,6 @@ def profile():
 
 
 if __name__ == '__main__':
-	game = GameEngine(Bot.V4(depth = 4), Player(), display = True)
+	game = GameEngine(Bot.V5(depth = 5), Bot.Random(), display = True)
 	print(game.start())
 	# profile()
