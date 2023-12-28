@@ -77,10 +77,12 @@ class Tournament(object):
 
 
 if __name__ == '__main__':
-	Tournament(Bot.V5(depth = 1), Bot.V4(depth = 4), 100, threading = True)
+	Tournament(Bot.Negamax(depth = 3), Bot.V5(depth = 3), 50, threading = True)
 
-# Random 42 - 38  Random
-# V1 	 45 - 38  Random
-# V2     62 - 21  Random (1: 1.5s  / 100: 50.5s)
-# V3     94 - 2   Random (1: .474s / 100: 8.6s)
-# V1     16 - 50  V2
+# VS Random (100 iterations):
+
+# V5 d=3: 		100 -> 16.1
+# Negamax d=3:	100 -> 11.5s
+
+# V5 d=4:		50 -> 33.9s
+# Negamax d=4:	50 -> 15.4s

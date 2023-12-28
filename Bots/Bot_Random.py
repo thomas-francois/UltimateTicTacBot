@@ -3,7 +3,7 @@ from random import choice
 
 class Bot_Random(object):
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         self.name = "Random"
 
     def start(self, game, ID):
