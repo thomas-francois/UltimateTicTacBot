@@ -9,3 +9,5 @@ Optimisations :
 - Iterative Deepening
 - Transposition table
 - Selectivity
+
+Transposition table is not worth because the number of repeat position is really small

@@ -2,10 +2,10 @@ from Bots.Node import Node
 import Utils
 
 
-class Bot_V5(object):
+class Bot_Minimax(object):
 
 	def __init__(self, depth = 3):
-		self.name = "V5 d=" + str(depth)
+		self.name = "Minimax d=" + str(depth)
 		self.depth = depth
 
 	def start(self, game, ID):
