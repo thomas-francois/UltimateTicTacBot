@@ -7,3 +7,4 @@ from Bots.Bot_V4 import Bot_V4 as V4
 from Bots.Bot_Minimax import Bot_Minimax as Minimax
 from Bots.Bot_Negamax import Bot_Negamax as Negamax
 from Bots.Bot_Negamax_V2 import Bot_Negamax_V2 as NegamaxV2
+from Bots.Bot_Negamax_Opti import Bot_Negamax_Opti as NegamaxOpti

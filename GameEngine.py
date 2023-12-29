@@ -78,8 +78,11 @@ class GameEngine(object):
 
 		# Else choose a random not full square:
 		else:
+			# TODO: Do not search current and target sqaure
 			possibleSquares = []
 			for i in range(9):
+				if i == state["square"] or i == targetSquare:
+					continue
 				if self.getLegalMoves(state, targetSquare = i) != []:
 					possibleSquares.append(i)
 
@@ -112,7 +115,7 @@ def profile():
 	import pstats
 
 	with cProfile.Profile() as pr:
-		game = GameEngine(Bot.Random(depth = 4), Bot.V5(depth = 4), display = False)
+		game = GameEngine(Bot.NegamaxOpti(depth = 5), Bot.Negamax(depth=5), display = False)
 		print(game.start())
 
 	stats = pstats.Stats(pr)
@@ -121,6 +124,7 @@ def profile():
 
 
 if __name__ == '__main__':
-	# profile()
-	game = GameEngine(Bot.NegamaxV2(depth = 6), Player(), display = True)
-	print(game.start())
+	profile()
+	# game = GameEngine(Bot.NegamaxOpti(depth = 3), Bot.Negamax(depth = 3), display = False)
+	# game = GameEngine(Bot.NegamaxOpti(depth = 4), Bot.Random(depth=3), display = False)
+	# print(game.start())

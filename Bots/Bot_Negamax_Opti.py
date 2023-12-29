@@ -2,10 +2,10 @@ from Bots.Node import Node
 import Utils
 
 
-class Bot_Negamax(object):
+class Bot_Negamax_Opti(object):
 
 	def __init__(self, depth=3):
-		self.name = "Negamax d=" + str(depth)
+		self.name = "NegamaxOpti d=" + str(depth)
 		self.depth = depth
 
 	def start(self, game, ID):
@@ -14,14 +14,14 @@ class Bot_Negamax(object):
 
 	def play(self):
 		# print("start Move")
-		root = self.createTree()
+		root = Node(-1, self.game.state)
 
 		# self.searches = 0
 
-		searchResult = self.negamax(root, alpha=float('-inf'), beta=float('inf'))
+		searchResult = self.negamax(root, self.depth, alpha=float('-inf'), beta=float('inf'))
 		bestMove = searchResult["node"].getLineage()[1]
 
-		# print(self.searches)
+		# print("Not OPTI", self.searches)
 
 		self.game.playMove(self, bestMove)
 
@@ -66,23 +66,53 @@ class Bot_Negamax(object):
 		# Utils.printDebugTree(root)
 		return root
 
-	def negamax(self, node, alpha, beta):
-		if not node.children:
+
+	def createChildren(self, node):
+		moves = self.game.getLegalMoves(node.state)
+
+		# Create one children for each possible moves
+		for move in moves:
+
+			# Copy the parent state and change it with the new move
+			newState = Utils.copyState(node.state)
+
+			newState["board"][move] = newState["player"]
+			newState["player"] = 1 - newState["player"]
+
+			# Get the square of the next move
+			possibleSquares = self.game.getNewSquare(node.state, move)
+
+			# If multiple next squares create a child for each of them
+			if isinstance(possibleSquares, list):
+				for square in possibleSquares:
+					newState["square"] = square
+					node.insertChild(Node(move, newState, node))
+
+			# Else create one child with the next square
+			else:
+				newState["square"] = possibleSquares
+				node.insertChild(Node(move, newState, node))
+
+
+	def negamax(self, node, depth, alpha, beta):
+		if depth > 0:
+			self.createChildren(node)
+
+		if depth == 0 or not node.children:
 			return {"node": node, "score": self.evaluateBoard(node.state)}
 
 		max_value = float('-inf')
 		best_move = node
 		for child in node.children:
-			evaluation = -self.negamax(child, -beta, -alpha)["score"]
-			if evaluation > max_value:
-				max_value = evaluation
-				best_move = child
-			alpha = max(alpha, evaluation)
+			evaluation = self.negamax(child, depth - 1, -beta, -alpha)
+			if -evaluation["score"] > max_value:
+				max_value = -evaluation["score"]
+				best_move = evaluation["node"]
+			alpha = max(alpha, -evaluation["score"])
 			if beta <= alpha:
 				break
 
 		return {"node": best_move, "score": max_value}
-
 
 	def evaluateBoard(self, state):
 		score = 0
@@ -110,4 +140,3 @@ class Bot_Negamax(object):
 				score -= 1
 
 		return score
-

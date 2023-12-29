@@ -77,7 +77,7 @@ class Tournament(object):
 
 
 if __name__ == '__main__':
-	Tournament(Bot.NegamaxV2(depth = 3), Bot.Negamax(depth = 3), 30, threading = True)
+	Tournament(Bot.Minimax(depth = 3), Bot.NegamaxOpti(depth = 3), 10, threading = True)
 
 # VS Random (100 iterations):
 
