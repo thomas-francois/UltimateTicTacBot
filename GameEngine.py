@@ -24,7 +24,6 @@ class GameEngine(object):
 		self.__players[0].start(self, 0)
 		self.__players[1].start(self, 1)
 
-
 		self.isStarted = True
 		while self.isStarted:
 			self.player.play()
@@ -123,5 +122,5 @@ def profile():
 
 if __name__ == '__main__':
 	# profile()
-	game = GameEngine(Bot.Negamax(depth = 3), Bot.Random(), display = True)
+	game = GameEngine(Bot.NegamaxV2(depth = 6), Player(), display = True)
 	print(game.start())

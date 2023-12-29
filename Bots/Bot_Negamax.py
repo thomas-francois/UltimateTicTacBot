@@ -16,8 +16,12 @@ class Bot_Negamax(object):
         # print("start Move")
         root = self.createTree()
 
+        self.searches = 0
+
         searchResult = self.negamax(root, alpha=float('-inf'), beta=float('inf'))
         bestMove = searchResult["node"].getLineage()[1]
+
+        print("Not OPTI", self.searches)
 
         self.game.playMove(self, bestMove)
 
@@ -59,7 +63,7 @@ class Bot_Negamax(object):
 
             currentNode = Node.getValidNode(self.depth)
 
-        Utils.printDebugTree(root)
+        # Utils.printDebugTree(root)
         return root
 
     def negamax(self, node, alpha, beta):
@@ -81,7 +85,7 @@ class Bot_Negamax(object):
 
     def evaluateBoard(self, state):
         score = 0
-        # self.searches += 1
+        self.searches += 1
 
         for sequence in [state["board"][i: i + 9] for i in range(0, 81, 9)]:
 
