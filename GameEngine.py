@@ -115,7 +115,7 @@ def profile():
 	import pstats
 
 	with cProfile.Profile() as pr:
-		game = GameEngine(Bot.NegamaxOpti(depth = 5), Bot.Negamax(depth=5), display = False)
+		game = GameEngine(Bot.NegamaxOpti(depth = 5), Bot.Random(depth=5), display = False)
 		print(game.start())
 
 	stats = pstats.Stats(pr)
@@ -125,6 +125,5 @@ def profile():
 
 if __name__ == '__main__':
 	profile()
-	# game = GameEngine(Bot.NegamaxOpti(depth = 3), Bot.Negamax(depth = 3), display = False)
-	# game = GameEngine(Bot.NegamaxOpti(depth = 4), Bot.Random(depth=3), display = False)
+	# game = GameEngine(Bot.NegamaxOpti(depth = 7), Bot.Random(depth=3), display = False)
 	# print(game.start())
