@@ -38,19 +38,13 @@ To enhance the bot's performance and decision-making capabilities, the project i
     
 -   **Transposition Table:** The project incorporates a Transposition Table to store previously calculated positions, preventing redundant calculations and accelerating the decision-making process by reusing stored evaluations.
 
-## Getting Started
+## Requirements
 
-Requirements: Python 3 and Tkinter  
+Ensure you have the following prerequisites installed before running the project:
 
-Follow these steps to get started with Ultimate TicTacBot:
+- [Python 3](https://www.python.org/downloads/) or later
+- [Tkinter](https://docs.python.org/3/library/tkinter.html) (Included with Python standard library)
 
-1. **Clone the Repository:**
-   ```bash
-   git clone https://github.com/thomas-francois/UltimateTicTacBot.git
-2. **Run the Bot:**
-	```bash
-	   cd UltimateTicTacBot
-	   python GameEngine.py
 ## Contributions
 
 Contributions are welcome!
