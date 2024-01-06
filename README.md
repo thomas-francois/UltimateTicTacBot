@@ -11,15 +11,18 @@ However, in this project's variant, the objective shifts to accumulating the hig
 
 Points are earned by achieving three symbols in a row on a board. Importantly, a single board can host multiple points, accommodating successful moves from both players.
 
-< image >
+<p align="center">
+	<img src="https://github.com/thomas-francois/UltimateTicTacBot/assets/103375765/6f9ac1a2-b2ef-4128-b7e9-042e4a256ee2" width="60%" />	
+</p>
+
 
 ## Features
 This project focuses on creating an intelligent bot capable of playing this custom variant with strategic decision-making.
-- **Custom Variant Support:** The bot is designed to play the custom variant of Ultimate Tic Tac Toe, providing a challenging opponent.
+- **Custom Variant Support:** The project implements the game engine including an API for this custom game variant along with a standalone game display module.
 
 - **Configurability:** The project provides options for configuring the bot's difficulty level, search depth, and other parameters, allowing users to tailor the experience to their preferences.
  
-- **Artificial Intelligence:** Utilizing advanced algorithms, the bot aims to make intelligent moves based on the current state of the game. Expect the bot to adapt and respond dynamically to different scenarios.
+- **Artificial Intelligence:** Utilizing algorithms, the bot aims to make intelligent moves based on the current state of the game.
 
 - **Tournament mode:** Employing threading capabilities, the engine can concurrently run multiple games, facilitating the comparison of different bots and assessing their strengths against one another. This feature enhances the project's versatility for comprehensive bot evaluations in a tournament setting.
 
@@ -28,15 +31,14 @@ This project focuses on creating an intelligent bot capable of playing this cust
 
 To enhance the bot's performance and decision-making capabilities, the project incorporates the following optimization techniques and strategies:
 
--   **Minimax:** The bot employs the Minimax algorithm to minimize the potential loss and maximize the potential gain, ensuring optimal decision-making in a turn-based game.
+-   **~~Minimax~~, Negamax:** The bot employs the Minimax algorithm to minimize the potential loss and maximize the potential gain, ensuring optimal decision-making in a turn-based game. Negamax simplifies the implementation of the Minimax algorithm by removing redundancy in code, reducing the overhead and making the code faster overall.
     
 -   **Alpha-Beta Pruning:** Enhancing the Minimax algorithm, the bot utilizes Alpha-Beta Pruning to reduce the number of nodes evaluated in the search tree, improving computational efficiency.
-    
--   **NegaMax:** This strategy simplifies the implementation of the Minimax algorithm by removing redundancy in code, reducing the overhead and making the code faster overall.
-    
--   **Move Ordering using Iterative Deepening:** To minimize the number of nodes searched, prioritizing the evaluation of the best nodes early on is crucial for achieving more aggressive pruning quickly. Leveraging Iterative Deepening, the algorithm incorporates the best moves from the preceding search to initiate the subsequent, deeper search, optimizing the decision-making process.
-    
--   **Transposition Table:** The project incorporates a Transposition Table to store previously calculated positions, preventing redundant calculations and accelerating the decision-making process by reusing stored evaluations.
+
+Optimizations tested but not deemed useful.
+> -   **Move Ordering using Iterative Deepening:** To minimize the number of nodes searched, prioritizing the evaluation of the best nodes early on is crucial for achieving more  aggressive pruning quickly. Leveraging Iterative Deepening, the algorithm incorporates the best moves from the preceding search to initiate the subsequent, deeper search, optimizing the decision-making process.
+>
+> -   **Transposition Table:** The project incorporates a Transposition Table to store previously calculated positions, preventing redundant calculations and accelerating the decision-making process by reusing stored evaluations.
 
 ## Requirements
 
