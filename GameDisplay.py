@@ -42,14 +42,11 @@ class GameDisplay(object):
 			canvas.create_line(margin + i * cellWidth, margin, margin + i * cellWidth, size - margin, width=lineWidth, fill="#545454")
 			canvas.create_line(margin, margin + i * cellWidth, size - margin, margin + i * cellWidth, width=lineWidth, fill="#545454")
 
-		canvas.create_text(size / 2 - 200 ,margin / 2 ,text = f"{self.__players[0].name}:"  ,fill = "#545454" ,font = ("Avenir" ,30))
-		canvas.create_text(size / 2 - 100 ,margin / 2 ,text = "0"  ,fill = "#545454" ,font = ("Avenir" ,30), tag="playerA")
 		canvas.create_text(size / 2 ,margin / 2 ,text = "-"  ,fill = "#545454" ,font = ("Avenir" ,30))
-		canvas.create_text(size / 2 + 100 ,margin / 2 ,text = f"{self.__players[1].name}:"  ,fill = "#545454" ,font = ("Avenir" ,30))
-		canvas.create_text(size / 2 + 200 ,margin / 2 ,text = "0"  ,fill = "#545454" ,font = ("Avenir" ,30), tag="playerB")
+		canvas.create_text(size / 4  ,margin / 2 ,text = f"{self.__players[0].name}: 0"  ,fill = "#545454" ,font = ("Avenir" ,30), tag="playerA")
+		canvas.create_text(3 * size / 4 ,margin / 2 ,text = f"{self.__players[1].name}: 0"  ,fill = "#545454" ,font = ("Avenir" ,30), tag="playerB")
 
 		self.overlay = canvas.create_rectangle(0 ,0 ,0 ,0, fill = "" ,outline = "#f2ebd3" ,width = 3)
-
 
 	def __updateOverlay(self, index):
 		x = index % 3
@@ -61,7 +58,6 @@ class GameDisplay(object):
 			self.margin + (x + 1) * (self.cellWidth * 3),
 			self.margin + (y + 1) * (self.cellWidth * 3),
 		)
-
 
 	def __createLine(self, square, lineType, index, padding = 15):
 		if lineType == "horizontal":
@@ -96,8 +92,6 @@ class GameDisplay(object):
 
 		self.canvas.create_line(coords, fill="#f2ebd3" ,tag="lines", width=4, capstyle="round")
 
-
-
 	def update(self, state):
 		i = 0
 		for cell in state["board"]:
@@ -126,11 +120,8 @@ class GameDisplay(object):
 					self.__createLine(index, line['type'], line['index'])
 			index += 1
 
-		self.canvas.itemconfigure("playerA", text=self.score['A'])
-		self.canvas.itemconfigure("playerB", text=self.score['B'])
-
-
-
+		self.canvas.itemconfigure("playerA", text=f"{self.__players[0].name}: {self.score['A']}")
+		self.canvas.itemconfigure("playerB", text=f"{self.__players[1].name}: {self.score['B']}")
 
 	def debug(self, data):
 		for item in data:

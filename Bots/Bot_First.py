@@ -1,6 +1,3 @@
-from random import choice
-
-
 class Bot_First(object):
 
     def __init__(self):

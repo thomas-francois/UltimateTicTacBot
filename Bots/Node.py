@@ -60,27 +60,3 @@ class Node(object):
 
 	def __str__(self):
 		return self.move
-
-
-if __name__ == '__main__':
-	state = ""
-	depth = 3
-
-	# Create starting node
-	Node(-1, state)
-
-	print("Tree :", Node.debug())
-
-	currentNode = Node.getValidNode(depth)
-
-	while currentNode is not None:
-		# Get all legal moves from the current state and create children
-
-
-
-		currentNode.insertChild(Node(0, state, currentNode))
-
-		# Remove node from tree and get a new one
-		print("Tree :", Node.debug())
-
-		currentNode = Node.getValidNode(depth)

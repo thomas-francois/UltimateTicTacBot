@@ -1,6 +1,7 @@
-import Bot
 import multiprocessing
 from GameEngine import GameEngine
+from Bots.Bot_Negamax import Bot_Negamax
+from Bots.Bot_Random import Bot_Random
 
 
 class Tournament(object):
@@ -75,14 +76,5 @@ class Tournament(object):
 		result_queue.put(score)
 
 
-
 if __name__ == '__main__':
-	Tournament(Bot.Minimax(depth = 3), Bot.NegamaxOpti(depth = 3), 10, threading = True)
-
-# VS Random (100 iterations):
-
-# V5 d=3: 		100 -> 16.1
-# Negamax d=3:	100 -> 11.5s
-
-# V5 d=4:		50 -> 33.9s
-# Negamax d=4:	50 -> 15.4s
+	Tournament(Bot_Negamax(depth = 3), Bot_Random(depth = 3), 10, threading = True)

@@ -1,8 +1,9 @@
 from random import choice
-import Bot
-import Utils
-from Player import Player
 from GameDisplay import GameDisplay
+import Utils
+from Bots.Bot_Negamax import Bot_Negamax
+from Bots.Bot_Random import Bot_Random
+from Player import Player
 
 
 class GameEngine(object):
@@ -15,7 +16,6 @@ class GameEngine(object):
 			self.state = {"board": [-1] * 81, "player": 0, "square": 4}
 		else:
 			self.state = state
-
 
 	def start(self):
 		if self.display:
@@ -32,7 +32,6 @@ class GameEngine(object):
 			self.display.fenetre.mainloop()
 
 		return Utils.calculteScore(self.state, [p.name for p in self.__players])
-
 
 
 	def playMove(self, player, move):
@@ -57,13 +56,11 @@ class GameEngine(object):
 			if self.display:
 				self.display.update(self.state)
 
-
 	def getLegalMoves(self, state, targetSquare = None):
 		board = state["board"]
 		square = state["square"] if targetSquare is None else targetSquare
 
 		return [i for i in range(square * 9, square * 9 + 9) if board[i] == -1]
-
 
 	def getNewSquare(self, state, move):
 		targetSquare = move % 9
@@ -78,7 +75,6 @@ class GameEngine(object):
 
 		# Else choose a random not full square:
 		else:
-			# TODO: Do not search current and target sqaure
 			possibleSquares = []
 			for i in range(9):
 				if i == state["square"] or i == targetSquare:
@@ -87,7 +83,6 @@ class GameEngine(object):
 					possibleSquares.append(i)
 
 			return possibleSquares
-
 
 	@property
 	def board(self):
@@ -110,20 +105,6 @@ class GameEngine(object):
 		self.state["square"] = value
 
 
-def profile():
-	import cProfile
-	import pstats
-
-	with cProfile.Profile() as pr:
-		game = GameEngine(Bot.NegamaxOpti(depth = 5), Bot.Random(depth=5), display = False)
-		print(game.start())
-
-	stats = pstats.Stats(pr)
-	stats.sort_stats(pstats.SortKey.TIME)
-	stats.dump_stats(filename="./Profiles/Profile.prof")
-
-
 if __name__ == '__main__':
-	profile()
-	# game = GameEngine(Bot.NegamaxOpti(depth = 7), Bot.Random(depth=3), display = False)
-	# print(game.start())
+	game = GameEngine(Bot_Negamax(depth = 3), Bot_Random(depth=3), display = True)
+	print(game.start())

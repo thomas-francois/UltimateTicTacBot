@@ -12,14 +12,11 @@ class Bot_Minimax(object):
 		self.game = game
 		self.ID = ID
 
-
 	def play(self):
-		# print("start Move")
 		root = self.createTree()
 		result = self.searchTree(root)
 
 		bestMove = result["node"].getLineage()[1]
-
 		self.game.playMove(self, bestMove)
 
 	def createTree(self):
@@ -50,19 +47,15 @@ class Bot_Minimax(object):
 					for square in possibleSquares:
 						newState["square"] = square
 						currentNode.insertChild(Node(move, newState, currentNode))
-						# print("Inserted from depth (random square)", possibleSquares, currentNode.depth)
 
 				# Else create one child with the next square
 				else:
 					newState["square"] = possibleSquares
 					currentNode.insertChild(Node(move, newState, currentNode))
-					# print("Inserted from depth ", currentNode.depth, possibleSquares)
 
 			currentNode = Node.getValidNode(self.depth)
 
-		# Utils.printDebugTree(root)
 		return root
-
 
 	def searchTree(self, root):
 		# Minimax search
@@ -75,7 +68,6 @@ class Bot_Minimax(object):
 		bestMove = max(results, key=lambda x: x["score"])
 
 		return bestMove
-
 
 	def minimax(self, node, alpha, beta):
 		if not node.children:
@@ -106,7 +98,6 @@ class Bot_Minimax(object):
 					break
 			return {"node": best_move, "score": min_value}
 
-
 	def evaluateBoard(self, state):
 		score = 0
 
@@ -131,11 +122,4 @@ class Bot_Minimax(object):
 			elif sequence[4] == 1 - self.ID:
 				score -= 1
 
-
-
 		return score
-
-
-if __name__ == '__main__':
-	from Morpion import main
-	main()
